@@ -26,7 +26,7 @@ namespace PrsDb.Controllers {
             _context = context;
         }
 
-        [HttpGet("review/{userId}")]
+        [HttpGet("reviews/{userId}")]
         public async Task<ActionResult<IEnumerable<Request>>> GetRequestsInReview(int userId) {
             var requests = await _context.Requests
                  .Where(y => (y.Status == REVIEW) && y.UserId != userId)
@@ -92,7 +92,7 @@ namespace PrsDb.Controllers {
             return await PutRequest(request.Id, request);   
         }
 
-        [HttpPut("approve")]
+        [HttpPut("approve/{requestId}")]
         public async Task<IActionResult> ApproveRequest(Request request) {
 
             request.Status = APPROVED;
@@ -100,7 +100,7 @@ namespace PrsDb.Controllers {
 
         }
 
-        [HttpPut("reject")]
+        [HttpPut("reject/{requestId}")]
         public async Task<IActionResult> RejectRequest(Request request) {
 
             request.Status = REJECTED;
